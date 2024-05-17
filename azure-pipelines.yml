@@ -8,7 +8,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-name: eShopOnWebCI-CD
+name: ESHOPONWEB-CI-CD
 trigger:
 - master
 
@@ -74,28 +74,28 @@ stages:
   #           WebAppName: 'primarkapp09'
   #           packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
-  - stage: Deploy 
-    displayName: Deploy to Azure webapp
-    jobs:
-    - deployment: Deploy
-      environment: Dev_approvals
-      pool:
-        vmImage: 'windows-2019'
-      strategy:
-       runOnce:
-         deploy:
-           steps:
-           - task: DownloadBuildArtifacts@0
-             inputs: 
-               buildType: 'current'
-               downloadType: 'single'
-               artifactName: 'Website'
-               downloadPath: '$(Build.ArtifactStagingDirectory)'
+  # - stage: Deploy 
+  #   displayName: Deploy to Azure webapp
+  #   jobs:
+  #   - deployment: Deploy
+  #     environment: Dev_approvals
+  #     pool:
+  #       vmImage: 'windows-2019'
+  #     strategy:
+  #      runOnce:
+  #        deploy:
+  #          steps:
+  #          - task: DownloadBuildArtifacts@0
+  #            inputs: 
+  #              buildType: 'current'
+  #              downloadType: 'single'
+  #              artifactName: 'Website'
+  #              downloadPath: '$(Build.ArtifactStagingDirectory)'
        
-           - task: AzureRmWebAppDeployment@4
-             inputs:
-               ConnectionType: 'AzureRM'
-               azureSubscription: 'primarkevening'
-               appType: 'webApp'
-               WebAppName: 'primarkapp09'
-               packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
+  #          - task: AzureRmWebAppDeployment@4
+  #            inputs:
+  #              ConnectionType: 'AzureRM'
+  #              azureSubscription: 'primarkevening'
+  #              appType: 'webApp'
+  #              WebAppName: 'primarkapp09'
+  #              packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
