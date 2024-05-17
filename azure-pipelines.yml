@@ -71,7 +71,7 @@ stages:
             ConnectionType: 'AzureRM'
             azureSubscription: 'primarkevening'
             appType: 'webApp'
-            WebAppName: 'primarkapp09'
+            WebAppName: 'primarkapp'
             packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
   # - stage: Deploy 
