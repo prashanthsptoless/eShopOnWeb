@@ -75,7 +75,36 @@ stages:
             packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
   - stage: Deploy 
-    displayName: QA
+    displayName: SIT1
+    dependsOn:
+    - Development
+    jobs:
+    - deployment: Deploy
+      environment: Dev_environment
+      pool:
+        vmImage: 'windows-2019'
+      strategy:
+       runOnce:
+         deploy:
+           steps:
+           - task: DownloadBuildArtifacts@0
+             inputs: 
+               buildType: 'current'
+               downloadType: 'single'
+               artifactName: 'Website'
+               downloadPath: '$(Build.ArtifactStagingDirectory)'
+       
+           - task: AzureRmWebAppDeployment@4
+             inputs:
+               ConnectionType: 'AzureRM'
+               azureSubscription: 'mayservconn'
+               appType: 'webApp'
+               WebAppName: 'prkwebapp02'
+               packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
+  - stage: test 
+    displayName: SIT2
+    dependsOn:
+    - Development
     jobs:
     - deployment: Deploy
       environment: Dev_environment
