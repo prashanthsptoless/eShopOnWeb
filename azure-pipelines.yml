@@ -71,7 +71,7 @@ stages:
             ConnectionType: 'AzureRM'
             azureSubscription: 'mayservconn'
             appType: 'webApp'
-            WebAppName: 'primarkapp'
+            WebAppName: 'prkwebapp01'
             packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
   - stage: Deploy 
@@ -97,5 +97,5 @@ stages:
                ConnectionType: 'AzureRM'
                azureSubscription: 'mayservconn'
                appType: 'webApp'
-               WebAppName: 'primarkapp09'
+               WebAppName: 'prkwebapp02'
                packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
