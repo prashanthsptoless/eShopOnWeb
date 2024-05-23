@@ -75,10 +75,10 @@ stages:
             packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
   - stage: Deploy 
-    displayName: SIT
+    displayName: QA
     jobs:
     - deployment: Deploy
-      environment: Dev_approvals
+      environment: Dev_environment
       pool:
         vmImage: 'windows-2019'
       strategy:
