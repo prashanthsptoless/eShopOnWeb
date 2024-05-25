@@ -30,4 +30,34 @@ stages:
         - task: SonarCloudPrepare@1
           inputs:
             SonarCloud: 'SonarSC'
+            organization: 'primark'
+            scannerMode: 'MSBuild'
+            projectKey: 'primark_primark'
+            projectName: 'primark'
+        - task: DotNetCoreCLI@2
+          displayName: Build 
+          inputs:
+           command: 'build'
+           projects: '**/*.sln'
+        - task: DotNetCoreCLI@2
+          displayName: Test
+          inputs:
+            command: 'test'
+            projects: 'tests/UnitTests/*.csproj'
+        - task: SonarCloudAnalyze@1
+        - task: SonarCloudPublish@1
+          inputs:
+           pollingTimeoutSec: '300'
+        - task: DotNetCoreCLI@2
+          displayName: Publish
+          inputs:
+            command: publish
+            publishWebProjects: true
+            arguments: '-o $(Build.ArtifactStagingDirectory)'
+        - task: PublishBuildArtifacts@1
+          displayName: publish artifacts
+          inputs:
+            pathToPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: Website
+ 
             
