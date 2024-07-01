@@ -64,7 +64,7 @@ stages:
           - task: AzureRmWebAppDeployment@4
             inputs:
              ConnectionType: AzureRM
-             azureSubscription: ''
+             azureSubscription: 'Eshop-Deploy'
              appType: webApp 
              webAppName: 'prkwebapp'
              packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
