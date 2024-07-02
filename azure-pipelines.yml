@@ -68,29 +68,31 @@ stages:
              webAppName: 'prkwebapp01'
              packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
-  # - stage: Deployment_QA
-  #   displayName: QA_Env
-  #   jobs:
-  #     - job: Deploy 
-  #       pool:
-  #         vmImage: 'windows-latest'
-  #       steps:
-  #         - task: DownloadBuildArtifacts@1
-  #           inputs:
-  #             buildType: 'current'
-  #             downloadType: 'single'
-  #             artifactName: 'RetailApp'
-  #             downloadPath: '$(Build.ArtifactStagingDirectory)'
-  #         - task: AzureRmWebAppDeployment@4
-  #           inputs:
-  #            ConnectionType: AzureRM
-  #            azureSubscription: 'Eshop-Deploy'
-  #            appType: webApp 
-  #            webAppName: 'prkwebapp02'
-  #            packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
+  - stage: Deployment_SIT1
+    displayName: SIT1_Env
+    dependsOn: Deployment
+    jobs:
+      - job: Deploy 
+        pool:
+          vmImage: 'windows-latest'
+        steps:
+          - task: DownloadBuildArtifacts@1
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'RetailApp'
+              downloadPath: '$(Build.ArtifactStagingDirectory)'
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+             ConnectionType: AzureRM
+             azureSubscription: 'Eshop-Deploy'
+             appType: webApp 
+             webAppName: 'prkwebapp02'
+             packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
-  - stage: Deployment_QA
-    displayName: QA_Env
+  - stage: Deployment_SIT2
+    displayName: SIT2_Env
+    dependsOn: Deployment
     jobs:
     - deployment: Deploy
       environment: QA-Env
