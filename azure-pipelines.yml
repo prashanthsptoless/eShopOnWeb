@@ -6,6 +6,11 @@
 name: ESHOPONWEB-CICD2
 trigger: none
 
+variables:
+  azureSubscription: 'Eshop-Deploy'
+  webAppName: 'prkwebapp01'
+
+
 resources:
  repositories:
    - repository: self 
@@ -63,9 +68,9 @@ stages:
           - task: AzureRmWebAppDeployment@4
             inputs:
              ConnectionType: AzureRM
-             azureSubscription: 'Eshop-Deploy'
+             azureSubscription: $(azureSubscription)
              appType: webApp 
-             webAppName: 'prkwebapp01'
+             webAppName: $(webAppName)
              packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
 
   - stage: Deployment_SIT1
