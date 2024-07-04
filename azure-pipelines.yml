@@ -7,8 +7,10 @@ name: ESHOPONWEB-CICD2
 trigger: none
 
 variables:
-  azureSubscription: 'Eshop-Deploy'
-  webAppName: 'prkwebapp01'
+  - name: azureSubscription
+    value: 'Eshop-Deploy'
+  - name: webAppName
+    value: 'prkwebapp01'
 
 
 resources:
